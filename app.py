@@ -59,7 +59,6 @@ HTML_PAGE = """
 </html>
 """
 
-# Regex to check allowed URLs (YouTube, Facebook, Instagram)
 VALID_URL_PATTERN = re.compile(
     r'^(https?://)?(www\.)?'
     r'(youtube\.com/watch\?v=|youtu\.be/|facebook\.com/.+/videos/.+|instagram\.com/p/.+)'
@@ -81,14 +80,13 @@ def download_youtube(url, format):
         'no_warnings': True,
     }
 
-    if format == 'mp3' or format == 'wav':
+    if format in ['mp3', 'wav']:
         ydl_opts['format'] = 'bestaudio/best'
         ydl_opts['postprocessors'] = [{
             'key': 'FFmpegExtractAudio',
             'preferredcodec': 'mp3',
             'preferredquality': '192',
         }]
-
     elif format == 'mp4':
         ydl_opts['format'] = 'bestvideo+bestaudio/best'
 
@@ -110,7 +108,6 @@ def download_youtube(url, format):
             os.remove(mp3_path)
 
             return wav_path
-
         else:
             ext = 'mp3' if format == 'mp3' else 'mp4'
             file_name = next((f for f in files if f.endswith(ext)), None)
@@ -147,4 +144,6 @@ def download():
     return send_file(file_path, as_attachment=True)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    import os
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=True)
