@@ -1,0 +1,17 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# Virtual environment folder (adjust if your env folder has a different name)
+myenv/
+venv/
+env/
+
+# Downloaded audio/video files
+downloads/
+
+# Environment variables
+.env
+
+# Other files to ignore
+*.log

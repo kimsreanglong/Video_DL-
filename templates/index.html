@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>YouTube Downloader</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px auto;
+            max-width: 600px;
+            text-align: center;
+        }
+        input, button {
+            padding: 10px;
+            margin: 10px 5px;
+            width: 80%;
+            font-size: 1em;
+        }
+        button {
+            width: 25%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>YouTube Downloader</h1>
+    <input type="text" id="youtubeUrl" placeholder="Enter YouTube video URL" />
+    <br/>
+    <button onclick="download('mp3')">Download MP3</button>
+    <button onclick="download('wav')">Download WAV</button>
+    <button onclick="download('mp4')">Download MP4</button>
+
+    <script>
+        function download(format) {
+            const url = document.getElementById('youtubeUrl').value.trim();
+            if (!url) {
+                alert('Please enter a YouTube URL.');
+                return;
+            }
+            const apiUrl = `/download?url=${encodeURIComponent(url)}&format=${format}`;
+            window.location.href = apiUrl;
+        }
+    </script>
+</body>
+</html>
